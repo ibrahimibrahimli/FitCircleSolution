@@ -1,0 +1,6 @@
+@FitCircleAPI_HostAddress = http://localhost:5171
+
+GET {{FitCircleAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
