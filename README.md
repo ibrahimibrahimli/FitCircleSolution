@@ -63,8 +63,8 @@ FitCircle brings personal fitness & nutrition together in one mobile experience.
 
 1. **Clone repos**  
    ```bash
-   git clone https://github.com/your-org/fitcircle-backend.git
-   git clone https://github.com/your-org/fitcircle-mobile.git
+   git clone https://github.com/ibrahimibrahimli/FitCircleSolution.git
+   git clone https://github.com/ibrahimibrahimli/FitCircleMobile.git
 
    📡 API & Mobile
 CQRS with MediatR:
