@@ -1,4 +1,4 @@
-# 🏋️‍♂️ FitCircle
+  # 🏋️‍♂️ FitCircle
 
 **A next‑gen fitness & wellness subscription platform**  
 Match with personal trainers, follow custom diet plans, browse partner gyms & stores, ask & answer questions—and more—all from one app.
