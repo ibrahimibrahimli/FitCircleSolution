@@ -1,4 +1,7 @@
 
+using Infrustructure.Extensions;
+using Persistance.Extensions;
+
 namespace FitCircleAPI
 {
     public class Program
@@ -8,6 +11,10 @@ namespace FitCircleAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+
+            builder.Services.AddPersistance(builder.Configuration);
+            builder.Services.AddInfrustructure();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
