@@ -9,6 +9,8 @@ namespace Domain.Entities
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Bio { get; set; }
+        public Gym Gym { get; set; }
+        public Guid GymId { get; set; }
 
         public string? ProfileImageUrl { get; set; }
         public string? CoverImageUrl { get; set; }
