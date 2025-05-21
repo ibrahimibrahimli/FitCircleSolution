@@ -1,9 +1,22 @@
-﻿using Domain.Identity;
+﻿using Application.Abstracts.Repositories;
+using Application.Abstracts.Repositories.Cities;
+using Application.Abstracts.Repositories.GymFacilities;
+using Application.Abstracts.Repositories.Gyms;
+using Application.Abstracts.Repositories.GymTypes;
+using Application.Abstracts.Repositories.TrainerRatings;
+using Application.Abstracts.Repositories.Trainers;
+using Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance.Context;
+using Persistance.Repositories.Cities;
+using Persistance.Repositories.GymFacilities;
+using Persistance.Repositories.Gyms;
+using Persistance.Repositories.GymTypes;
+using Persistance.Repositories.TrainerRatings;
+using Persistance.Repositories.Trainers;
 
 namespace Persistance.Extensions
 {
@@ -17,6 +30,22 @@ namespace Persistance.Extensions
             }).AddEntityFrameworkStores<FitCircleDbContext>()
                 .AddDefaultTokenProviders();
             services.AddDbContext<FitCircleDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
+
+            services.AddScoped(typeof(IReadRepository<>), typeof(IReadRepository<>));
+            services.AddScoped(typeof(IWriteRepository<>), typeof(IWriteRepository<>));
+
+            services.AddScoped<IGymReadRepository, GymReadRepository>();
+            services.AddScoped<IGymWriteRepository, GymWriteRepository>();
+            services.AddScoped<ICityReadRepository, CityReadRepository>();
+            services.AddScoped<ICityWriteRepository, CityWriteRepository>();
+            services.AddScoped<IGymFacilityReadRepository, GymFacilityReadRepository>();
+            services.AddScoped<IGymFacilityWriteRepository, GymFacilityWriteRepository>();
+            services.AddScoped<IGymTypeReadRepository, GymTypeReadRepository>();
+            services.AddScoped<IGymTypeWriteRepository, GymTypeWriteRepository>();
+            services.AddScoped<ITrainerRatingReadRepository, TrainerRatingReadRepository>();
+            services.AddScoped<ITrainerRatingWriteRepository, TrainerRatingWriteRepository>();
+            services.AddScoped<ITrainerReadRepository, TrainerReadRepository>();
+            services.AddScoped<ITrainerWriteRepository, TrainerWriteRepository>();
 
             return services;
 
