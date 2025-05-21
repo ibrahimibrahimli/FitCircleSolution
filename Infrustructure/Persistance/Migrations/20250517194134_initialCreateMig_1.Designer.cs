@@ -12,8 +12,8 @@ using Persistance.Context;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(FitCircleDbContext))]
-    [Migration("20250521192253_Mig_1")]
-    partial class Mig_1
+    [Migration("20250517194134_initialCreateMig_1")]
+    partial class initialCreateMig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
