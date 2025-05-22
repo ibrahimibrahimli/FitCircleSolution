@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96
+VisualStudioVersion = 17.13.35919.96 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -18,12 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistance", "Infrustructure\Persistance\Persistance.csproj", "{94D39FA0-643B-4468-9871-5E5E6121E9ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitCircleAPI", "FitCircleAPI\FitCircleAPI.csproj", "{E106AA16-4442-4D6E-90F6-4735D1B8576E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D43DE40A-00C3-4208-8C0F-65CD0CFAF530}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{AADA2385-949B-4548-8F82-6321F7EFB914}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "İntegrationTests\IntegrationTests.csproj", "{95419A4C-BA53-4761-83F8-409E0C51EAEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,14 +45,6 @@ Global
 		{E106AA16-4442-4D6E-90F6-4735D1B8576E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E106AA16-4442-4D6E-90F6-4735D1B8576E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E106AA16-4442-4D6E-90F6-4735D1B8576E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AADA2385-949B-4548-8F82-6321F7EFB914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AADA2385-949B-4548-8F82-6321F7EFB914}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AADA2385-949B-4548-8F82-6321F7EFB914}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AADA2385-949B-4548-8F82-6321F7EFB914}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95419A4C-BA53-4761-83F8-409E0C51EAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95419A4C-BA53-4761-83F8-409E0C51EAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95419A4C-BA53-4761-83F8-409E0C51EAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95419A4C-BA53-4761-83F8-409E0C51EAEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,8 +55,6 @@ Global
 		{96025CAA-0BB5-4789-ABA6-C1EE68B535BE} = {34B9D056-60BA-49FC-977D-2ECD829DBB60}
 		{94D39FA0-643B-4468-9871-5E5E6121E9ED} = {34B9D056-60BA-49FC-977D-2ECD829DBB60}
 		{E106AA16-4442-4D6E-90F6-4735D1B8576E} = {46529331-4800-4FB0-984B-498D51AFF326}
-		{AADA2385-949B-4548-8F82-6321F7EFB914} = {D43DE40A-00C3-4208-8C0F-65CD0CFAF530}
-		{95419A4C-BA53-4761-83F8-409E0C51EAEB} = {D43DE40A-00C3-4208-8C0F-65CD0CFAF530}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81F1EF97-7ADB-474D-8350-DD6F9EDE644C}
