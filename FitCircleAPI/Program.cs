@@ -1,4 +1,5 @@
 
+using Application.Extensions;
 using Infrustructure.Extensions;
 using Persistance.Extensions;
 
@@ -15,6 +16,7 @@ namespace FitCircleAPI
 
             builder.Services.AddPersistance(builder.Configuration);
             builder.Services.AddInfrustructure();
+            builder.Services.AddApplication();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

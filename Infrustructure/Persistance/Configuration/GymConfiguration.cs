@@ -31,7 +31,8 @@ namespace Persistance.Configuration
 
             builder.HasMany(g => g.Facilities)
                 .WithOne(f => f.Gym)
-                .HasForeignKey(f => f.GymId);
+                .HasForeignKey(f => f.GymId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(g => g.Trainers)
                 .WithOne(t => t.Gym)
