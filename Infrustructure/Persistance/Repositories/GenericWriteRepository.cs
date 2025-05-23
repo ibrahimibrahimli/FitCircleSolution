@@ -1,6 +1,7 @@
 ﻿using Application.Abstracts.Repositories;
 using Domain.Common;
 using Persistance.Context;
+using System.Threading.Tasks;
 
 namespace Persistance.Repositories
 {
@@ -13,34 +14,34 @@ namespace Persistance.Repositories
             _context = context;
         }
 
-        public Task AddAsync(T entity, CancellationToken cancellationToken = default)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await _context.Set<T>().AddAsync(entity, cancellationToken);
         }
 
-        public Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
+            await _context.Set<T>().AddRangeAsync(entities, cancellationToken);
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+        }
+
+        public void Remove(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+        }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().RemoveRange(entities);
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
