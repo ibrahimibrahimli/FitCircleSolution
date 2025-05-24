@@ -6,5 +6,8 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         public string PostalCode { get; set; }
+        public Country Country { get; set; }
+        public Guid CountryId { get; set; }
+        public ICollection<Gym> Trainers { get; private set; } = new List<Gym>();
     }
 }
