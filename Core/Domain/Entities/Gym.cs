@@ -4,80 +4,96 @@ namespace Domain.Entities
 {
     public class Gym : BaseAuditableEntity
     {
+        private readonly List<GymFacility> _facilities = new();
+        private readonly List<Trainer> _trainers = new();
+
+        private Gym() { } // ORM üçün
+
+        private Gym(
+            string name,
+            string? description,
+            string address,
+            City city,
+            string phoneNumber,
+            string? email,
+            double latitude,
+            double longitude,
+            bool isVipSupported,
+            bool isCorporatePartner)
+        {
+            Name = name;
+            Description = description;
+            Address = address;
+            City = city;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Latitude = latitude;
+            Longitude = longitude;
+            IsVipSupported = isVipSupported;
+            IsCorporatePartner = isCorporatePartner;
+        }
+
         public string Name { get; private set; }
         public string? Description { get; private set; }
         public string Address { get; private set; }
         public City City { get; private set; }
         public string PhoneNumber { get; private set; }
         public string? Email { get; private set; }
-
-        public double Latitude { get; private set; } //Map üçün
+        public double Latitude { get; private set; }
         public double Longitude { get; private set; }
-
         public bool IsVipSupported { get; private set; }
         public bool IsCorporatePartner { get; private set; }
 
-        public ICollection<GymFacility> Facilities { get; private set; } = new List<GymFacility>();
-        public ICollection<Trainer> Trainers { get; private set; } = new List<Trainer>();
+        public IReadOnlyCollection<GymFacility> Facilities => _facilities.AsReadOnly();
+        public IReadOnlyCollection<Trainer> Trainers => _trainers.AsReadOnly();
 
-
-
-        private Gym() { }
-
-        public Gym(
+        public static Gym Create(
             string name,
+            string? description,
             string address,
             City city,
             string phoneNumber,
-
-            string? description,
             string? email,
             double latitude,
             double longitude,
-            bool ısVipSupported,
-            bool ısCorporatePartner,
-            ICollection<GymFacility> facilities,
-            ICollection<Trainer> trainers)
+            bool isVipSupported,
+            bool isCorporatePartner)
         {
-            SetName(name);
-            SetAddress(address);
-            SetCity(city);
-            SetPhoneNumber(phoneNumber);
+            return new(name, description, address, city, phoneNumber, email, latitude, longitude, isVipSupported, isCorporatePartner);
+        }
 
-            UpdateDescription(description);
-            UpdateEmail(email);
+        public void UpdateInfo(
+            string name,
+            string? description,
+            string address,
+            City city,
+            string phoneNumber,
+            string? email,
+            double latitude,
+            double longitude,
+            bool isVipSupported,
+            bool isCorporatePartner)
+        {
+            Name = name;
+            Description = description;
+            Address = address;
+            City = city;
+            PhoneNumber = phoneNumber;
+            Email = email;
             Latitude = latitude;
             Longitude = longitude;
+            IsVipSupported = isVipSupported;
+            IsCorporatePartner = isCorporatePartner;
         }
 
-        //Behaviors
-
-        public void SetName(string name)
+        public void AddFacility(GymFacility facility)
         {
-            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException("Name is Required");
-            if (name.Length > 100) throw new ArgumentException("Name cannot exceed 100 characters");
-            Name = name;
+            _facilities.Add(facility);
         }
 
-        public void SetAddress(string address)
+        public void AddTrainer(Trainer trainer)
         {
-            if (string.IsNullOrWhiteSpace(address)) throw new ArgumentNullException("Address is required");
-            Address = address;
+            _trainers.Add(trainer);
         }
-
-        public void SetCity(City city)
-        {
-            if (string.IsNullOrEmpty(city.ToString())) throw new ArgumentNullException("City is required");
-            City = city;
-        }
-
-        public void SetPhoneNumber(string phoneNumber)
-        {
-            if (string.IsNullOrWhiteSpace(phoneNumber)) throw new ArgumentNullException("PhoneNumber is Required");
-        }
-
-        public void UpdateDescription(string? description) => Description = description;
-        public void UpdateEmail(string? email) => Email = email;
-
     }
 }
