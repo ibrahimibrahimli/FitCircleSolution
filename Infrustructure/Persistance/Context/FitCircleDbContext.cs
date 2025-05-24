@@ -17,6 +17,7 @@ namespace Persistance.Context
         public DbSet<GymFacility> GymFacilities { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<TrainerRating> TrainerRatings { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
 
 
