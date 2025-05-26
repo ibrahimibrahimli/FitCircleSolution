@@ -2,8 +2,9 @@
 {
     public enum SubcriptionType
     {
-        Flexibl = 1,
-        Category = 2,
-        Hybrid = 3
+        Standart = 1,
+        Gold = 2,
+        Premium = 3,
+        Vip = 4,
     }
 }
