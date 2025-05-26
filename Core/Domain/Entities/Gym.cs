@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Enums;
 
 namespace Domain.Entities
 {
@@ -43,7 +44,9 @@ namespace Domain.Entities
         public double Longitude { get; private set; }
         public bool IsVipSupported { get; private set; }
         public bool IsCorporatePartner { get; private set; }
-
+        public decimal MonthlyPrice { get; private set; }
+        public SubcriptionType SubscriptionCategory =>
+        SubscriptionTypeHelper.DetermineSubscriptionType(MonthlyPrice);
         public IReadOnlyCollection<GymFacility> Facilities => _facilities.AsReadOnly();
         public IReadOnlyCollection<Trainer> Trainers => _trainers.AsReadOnly();
 
