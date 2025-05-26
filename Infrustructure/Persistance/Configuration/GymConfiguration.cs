@@ -23,9 +23,6 @@ namespace Persistance.Configuration
             builder.Property(g => g.City)
                 .HasMaxLength(100);
 
-            builder.Property(g => g.Country)
-                .HasMaxLength(100);
-
             builder.Property(g => g.PhoneNumber)
                 .HasMaxLength(50);
 
