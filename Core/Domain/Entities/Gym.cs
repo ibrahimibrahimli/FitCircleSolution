@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Common.Helpers;
 using Domain.Enums;
 
 namespace Domain.Entities
@@ -8,7 +9,7 @@ namespace Domain.Entities
         private readonly List<GymFacility> _facilities = new();
         private readonly List<Trainer> _trainers = new();
 
-        private Gym() { } // ORM üçün
+        private Gym() { }
 
         private Gym(
             string name,
@@ -46,7 +47,7 @@ namespace Domain.Entities
         public bool IsCorporatePartner { get; private set; }
         public decimal MonthlyPrice { get; private set; }
         public SubcriptionType SubscriptionCategory =>
-        SubscriptionTypeHelper.DetermineSubscriptionType(MonthlyPrice);
+        SubcriptionTypeHelper.DetermineSubcriptionType(MonthlyPrice);
         public IReadOnlyCollection<GymFacility> Facilities => _facilities.AsReadOnly();
         public IReadOnlyCollection<Trainer> Trainers => _trainers.AsReadOnly();
 
