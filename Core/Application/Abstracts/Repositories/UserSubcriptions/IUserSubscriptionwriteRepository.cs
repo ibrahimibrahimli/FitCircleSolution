@@ -1,6 +1,8 @@
-﻿namespace Application.Abstracts.Repositories.UserSubcriptions
+﻿using Domain.Entities;
+
+namespace Application.Abstracts.Repositories.UserSubcriptions
 {
-    internal interface IUserSubscriptionwriteRepository
+    public interface IUserSubscriptionWriteRepository : IWriteRepository<UserSubcription>
     {
     }
 }
