@@ -1,5 +1,6 @@
 
 using Application.Extensions;
+using FitCircleAPI.Exsensions;
 using Infrustructure.Extensions;
 using Persistance.Extensions;
 
@@ -36,6 +37,8 @@ namespace FitCircleAPI
 
 
             app.MapControllers();
+
+            app.UseApplicationMiddlewares();
 
             app.Run();
         }
