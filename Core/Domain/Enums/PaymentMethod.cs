@@ -6,7 +6,6 @@
         DebitCard,
         ApplePay,
         GooglePay,
-        Stripe,
         BankTransfer
     }
 }
