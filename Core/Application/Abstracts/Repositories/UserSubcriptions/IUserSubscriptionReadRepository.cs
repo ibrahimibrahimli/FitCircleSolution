@@ -2,8 +2,8 @@
 
 namespace Application.Abstracts.Repositories.UserSubcriptions
 {
-    public interface IUserSubscriptionReadRepository : IReadRepository<UserSubcription>
+    public interface IUserSubscriptionReadRepository : IReadRepository<UserSubscription>
     {
-        Task<UserSubcription?> GetActiveSubscriptionByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
+        Task<UserSubscription?> GetActiveSubscriptionByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 }

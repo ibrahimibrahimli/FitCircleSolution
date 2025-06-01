@@ -20,6 +20,8 @@ namespace Persistance.Configuration
                 .IsRequired()
                 .HasMaxLength(50);
 
+            builder.Ignore(t => t.Specializations);
+
             builder.Property(t => t.Email)
                 .IsRequired()
                 .HasMaxLength(100);

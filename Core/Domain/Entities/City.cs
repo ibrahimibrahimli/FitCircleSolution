@@ -7,6 +7,7 @@ public class City : BaseAuditableEntity
     public string PostalCode { get; private set; }
     public Guid CountryId { get; private set; }
     public virtual Country Country { get; private set; }
+    public ICollection<Gym> Gyms { get; private set; }
 
     private City() { }
 

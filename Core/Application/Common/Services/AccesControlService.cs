@@ -1,27 +1,28 @@
 ﻿using Application.Abstracts.Repositories.Gyms;
+using Application.Abstracts.Repositories.UserSubcriptions;
 using Application.Common.Interfaces;
-using Application.Common.Interfaces.AccessControl;
-using Application.Common.Interfaces.Persistence;
+using Application.Common.Interfaces;
+using Application.Common.Interfaces;
 using Domain.Enums;
 
 namespace Application.Common.Services.AccessControl;
 
 public class AccessControlService : IAccessControlService
 {
-    private readonly IUserSubscriptionRepository _subscriptionRepository;
+    private readonly IUserSubscriptionReadRepository _subscriptionReadRepository;
     private readonly IGymReadRepository _gymReadRepository;
 
     public AccessControlService(
-        IUserSubscriptionRepository subscriptionRepository,
+        IUserSubscriptionReadRepository subscriptionRepository,
         IGymReadRepository gymRepository)
     {
-        _subscriptionRepository = subscriptionRepository;
+        _subscriptionReadRepository = subscriptionRepository;
         _gymReadRepository = gymRepository;
     }
 
     public async Task<bool> CanUserAccessGymAsync(Guid userId, Guid gymId, CancellationToken cancellationToken = default)
     {
-        var subscription = await _subscriptionRepository.GetActiveSubscriptionByUserIdAsync(userId, cancellationToken);
+        var subscription = await _subscriptionReadRepository.GetActiveSubscriptionByUserIdAsync(userId, cancellationToken);
         if (subscription is null)
             return false;
 
@@ -32,10 +33,9 @@ public class AccessControlService : IAccessControlService
        
         return subscription.Type switch
         {
-            SubcriptionType.Vip => true,
-            SubcriptionType.Premium => gym.MonthlyPrice <= 100,
-            SubcriptionType.Gold => gym.MonthlyPrice <= 80,
-            SubcriptionType.Standart => gym.MonthlyPrice <= 60,
+            SubscriptionType.Vip => true,
+            SubscriptionType.Premium => gym.MonthlyPrice <= 100,
+            SubscriptionType.Basic => gym.MonthlyPrice <= 60,
             _ => false
         };
     }

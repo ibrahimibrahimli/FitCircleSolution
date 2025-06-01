@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 using Domain.Common;
 using Domain.ValueObjects;
 
@@ -58,6 +59,7 @@ namespace Domain.Entities
 
         // Collections
         private readonly List<TrainerRating> _ratings = new();
+        [NotMapped]
         private readonly List<GymFacilityType> _specializations = new();
         private readonly List<string> _certifications = new();
 
@@ -301,3 +303,4 @@ namespace Domain.Entities
 
         public override int GetHashCode() => Id.GetHashCode();
     }
+}

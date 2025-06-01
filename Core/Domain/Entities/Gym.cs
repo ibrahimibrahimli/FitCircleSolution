@@ -31,7 +31,8 @@ namespace Domain.Entities
         public string Name { get; private set; }
         public string? Description { get; private set; }
         public string Address { get; private set; }
-        public virtual City City { get; private set; }
+        public  City City { get; private set; }
+        public Guid CityId { get; private set; }
         public string PhoneNumber { get; private set; }
         public string? Email { get; private set; }
         public double Latitude { get; private set; }
@@ -41,7 +42,7 @@ namespace Domain.Entities
         public decimal MonthlyPrice { get; private set; }
 
         // Computed Properties
-        public SubcriptionType SubscriptionCategory =>
+        public SubscriptionType SubscriptionCategory =>
             SubcriptionTypeHelper.DetermineSubcriptionType(MonthlyPrice);
 
         public IReadOnlyCollection<GymFacility> Facilities => _facilities.AsReadOnly();

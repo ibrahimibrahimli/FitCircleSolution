@@ -181,8 +181,7 @@ namespace Domain.Extensions
             {
                 SubscriptionType.Basic => "Əsas",
                 SubscriptionType.Premium => "Premium",
-                SubscriptionType.VIP => "VIP",
-                SubscriptionType.Trial => "Sınaq",
+                SubscriptionType.Vip => "VIP",
                 SubscriptionType.Corporate => "Korporativ",
                 _ => type.ToString()
             };
@@ -192,10 +191,9 @@ namespace Domain.Extensions
         {
             return type switch
             {
-                SubscriptionType.Trial => 7,
                 SubscriptionType.Basic => 30,
                 SubscriptionType.Premium => 30,
-                SubscriptionType.VIP => 30,
+                SubscriptionType.Vip => 30,
                 SubscriptionType.Corporate => 365,
                 _ => 30
             };
@@ -205,10 +203,9 @@ namespace Domain.Extensions
         {
             return type switch
             {
-                SubscriptionType.Trial => 0m,
                 SubscriptionType.Basic => 50m,
                 SubscriptionType.Premium => 100m,
-                SubscriptionType.VIP => 200m,
+                SubscriptionType.Vip => 200m,
                 SubscriptionType.Corporate => 1000m,
                 _ => 0m
             };
@@ -219,7 +216,7 @@ namespace Domain.Extensions
             return type switch
             {
                 SubscriptionType.Premium => true,
-                SubscriptionType.VIP => true,
+                SubscriptionType.Vip => true,
                 SubscriptionType.Corporate => true,
                 _ => false
             };
