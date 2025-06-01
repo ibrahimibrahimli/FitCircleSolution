@@ -2,7 +2,7 @@
 
 namespace Application.Abstracts.Repositories.UserSubcriptions
 {
-    public interface IUserSubscriptionWriteRepository : IWriteRepository<UserSubcription>
+    public interface IUserSubscriptionWriteRepository : IWriteRepository<UserSubscription>
     {
     }
 }

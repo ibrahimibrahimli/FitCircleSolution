@@ -4,13 +4,13 @@ using Persistance.Context;
 
 namespace Persistance.Repositories.UserSubscriptions
 {
-    public class UserSubscriptionReadRepository : GenericReadRepository<UserSubcription>, IUserSubscriptionReadRepository
+    public class UserSubscriptionReadRepository : GenericReadRepository<UserSubscription>, IUserSubscriptionReadRepository
     {
         public UserSubscriptionReadRepository(FitCircleDbContext context) : base(context)
         {
         }
 
-        public Task<UserSubcription?> GetActiveSubscriptionByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+        public Task<UserSubscription?> GetActiveSubscriptionByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

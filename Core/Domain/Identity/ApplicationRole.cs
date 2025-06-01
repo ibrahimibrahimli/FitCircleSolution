@@ -2,7 +2,7 @@
 
 namespace Domain.Identity
 {
-    public class ApplicationRole : IdentityRole<Guid>
+    public class ApplicationRole : IdentityRole<string>
     {
         public string DisplayName { get; private set; } = string.Empty;
 
@@ -37,7 +37,7 @@ namespace Domain.Identity
             ValidateRoleName(name);
             ValidateDisplayName(displayName);
 
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             Name = name.ToUpperInvariant();
             NormalizedName = name.ToUpperInvariant();
             DisplayName = displayName.Trim();
@@ -129,7 +129,7 @@ namespace Domain.Identity
         }
     }
 
-    public class ApplicationUserRole : IdentityUserRole<Guid>
+    public class ApplicationUserRole : IdentityUserRole<string>
     {
         public DateTime AssignedAt { get; private set; }
 
@@ -150,8 +150,8 @@ namespace Domain.Identity
 
         public ApplicationUserRole(Guid userId, Guid roleId, string? assignedBy = null, DateTime? expiresAt = null)
         {
-            UserId = userId;
-            RoleId = roleId;
+            UserId = userId.ToString();
+            RoleId = roleId.ToString();
             AssignedBy = assignedBy;
             ExpiresAt = expiresAt;
             AssignedAt = DateTime.UtcNow;

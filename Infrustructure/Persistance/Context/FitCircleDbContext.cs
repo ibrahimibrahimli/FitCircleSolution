@@ -4,46 +4,113 @@ using Domain.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Configuration;
-using System.Reflection.Emit;
 
 namespace Persistance.Context
 {
     public class FitCircleDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public FitCircleDbContext(DbContextOptions<FitCircleDbContext> options) : base(options) { }
+        public FitCircleDbContext(DbContextOptions<FitCircleDbContext> options) : base(options)
+        {
+        }
 
-        public DbSet<City> Citys { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<ApplicationRole> Roles { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<DietPlan> DietPlans { get; set; }
+        public DbSet<DietPlanMeal> DietPlanMeals { get; set; }
+        public DbSet<DietPlanProgress> DietPlanProgresses { get; set; }
         public DbSet<Gym> Gyms { get; set; }
         public DbSet<GymFacility> GymFacilities { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<TrainerRating> TrainerRatings { get; set; }
-        public DbSet<Country> Countries { get; set; }
-
-
-
-
+        public DbSet<UserSubscription> UserSubscriptions { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
+        public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
+        public DbSet<WorkoutPlan> WorkoutPlans { get; set; }
+        public DbSet<WorkoutPlanProgress> WorkoutPlanProgresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
+            // Configuration-ları tətbiq et
             builder.ApplyConfigurationsFromAssembly(typeof(FitCircleDbContext).Assembly);
 
+            // Global query filter-lər (məsələn soft delete üçün)
+            ConfigureGlobalFilters(builder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var data = ChangeTracker.Entries<BaseAuditableEntity>();
-            foreach (var item in data)
-            {
-                _ = item.State switch
-                {
-                    EntityState.Added => item.Entity.CreatedDate = DateTime.UtcNow,
-                    EntityState.Modified => item.Entity.UpdatedDate = DateTime.UtcNow,
-                    _ => DateTime.UtcNow
-                };
-            }
+            // Audit informasiyasını yenilə
+            UpdateAuditInformation();
+
             return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            // Audit informasiyasını yenilə
+            UpdateAuditInformation();
+
+            return base.SaveChanges();
+        }
+
+        private void UpdateAuditInformation()
+        {
+            var auditableEntities = ChangeTracker
+                .Entries<BaseAuditableEntity>()
+                .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+
+            var utcNow = DateTime.UtcNow;
+
+            foreach (var entityEntry in auditableEntities)
+            {
+                switch (entityEntry.State)
+                {
+                    case EntityState.Added:
+                        entityEntry.Entity.CreatedAt = utcNow;
+                        // Əgər UpdatedDate property-si varsa
+                        if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
+                        {
+                            entityEntry.Property("UpdatedDate").CurrentValue = utcNow;
+                        }
+                        break;
+
+                    case EntityState.Modified:
+                        // CreatedAt-ı dəyişdirilməsinə icazə vermə
+                        entityEntry.Property(e => e.CreatedAt).IsModified = false;
+
+                        // UpdatedDate-i yenilə
+                        if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
+                        {
+                            entityEntry.Property("UpdatedDate").CurrentValue = utcNow;
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void ConfigureGlobalFilters(ModelBuilder builder)
+        {
+            // Soft delete filter (əgər ISoftDelete interface-i varsa)
+            // builder.Entity<BaseAuditableEntity>()
+            //     .HasQueryFilter(e => !e.IsDeleted);
+
+            // Digər global filter-lər burada əlavə edilə bilər
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            // Development zamanı sensitive data logging-i aktiv et
+#if DEBUG
+            optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder.EnableDetailedErrors();
+#endif
         }
     }
 }

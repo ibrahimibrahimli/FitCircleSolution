@@ -4,6 +4,8 @@ namespace Domain.Entities;
 
 public class Country : BaseAuditableEntity
 {
+    private readonly List<City> _cities = new();
+
     private Country() { }
 
     private Country(string name, string countryCode)

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Identity
 {
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationUser : IdentityUser<string>
     {
         public string FirstName { get; private set; } = string.Empty;
 
@@ -92,7 +92,7 @@ namespace Domain.Identity
         {
             ValidateRequiredFields(firstName, lastName, email, phoneNumber);
 
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
             Email = email.Trim().ToLowerInvariant();
@@ -189,10 +189,6 @@ namespace Domain.Identity
             if (activeSubscription == null)
                 return true;
 
-            // Can't downgrade to trial
-            if (subscriptionType == SubscriptionType.Trial)
-                return false;
-
             // Can upgrade or change to different type
             return true;
         }
@@ -257,35 +253,6 @@ namespace Domain.Identity
                 if (dateOfBirth.Value < DateTime.Today.AddYears(-120))
                     throw new ArgumentException("Doğum tarixi 120 ildən çox əvvəl ola bilməz.");
             }
-        }
-    }
-}
-
-namespace Domain.Enums
-{
-    public enum Gender
-    {
-        Male = 1,
-        Female = 2,
-        Other = 3,
-        PreferNotToSay = 4
-    }
-}
-
-namespace Domain.Extensions
-{
-    public static class GenderExtensions
-    {
-        public static string GetDisplayName(this Gender gender)
-        {
-            return gender switch
-            {
-                Gender.Male => "Kişi",
-                Gender.Female => "Qadın",
-                Gender.Other => "Digər",
-                Gender.PreferNotToSay => "Deməyi üstün tutmuram",
-                _ => gender.ToString()
-            };
         }
     }
 }

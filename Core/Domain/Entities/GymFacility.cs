@@ -21,7 +21,7 @@ public class GymFacility : BaseAuditableEntity
     // Core Properties
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public GymFacilityType FacilityType { get; private set; }
+    public GymFacilityType FacilityType { get; private set; } = GymFacilityType.Cardio;
     public Guid GymId { get; private set; }
     public virtual Gym Gym { get; private set; }
 

@@ -1,5 +1,7 @@
 ﻿using Domain.Entities;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistance.Configuration
@@ -11,6 +13,18 @@ namespace Persistance.Configuration
             builder.ToTable("GymFacilities");
 
             builder.HasKey(f => f.Id);
+
+            builder.Ignore(g => g.FacilityType);
+
+            builder.Property(x => x.FacilityType)
+            .HasConversion(
+                v => v.Id,  // Database-ə yazarkən
+                v => GymFacilityType.FromId(v), // Database-dən oxuyarkən
+                new ValueComparer<GymFacilityType>(
+                    (c1, c2) => c1.Id == c2.Id,
+                    c => c.Id.GetHashCode(),
+                    c => GymFacilityType.FromId(c.Id)))
+            .HasColumnName("FacilityTypeId");
 
             builder.Property(f => f.Name)
                    .IsRequired()
@@ -27,7 +41,7 @@ namespace Persistance.Configuration
                    .HasForeignKey(f => f.GymId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(f => f.CreatedDate)
+            builder.Property(f => f.CreatedAt)
                    .HasDefaultValueSql("GETUTCDATE()");
         }
     }

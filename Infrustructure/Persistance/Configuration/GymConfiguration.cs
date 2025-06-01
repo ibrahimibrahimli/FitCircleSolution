@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace Persistance.Configuration
 {
@@ -20,9 +21,6 @@ namespace Persistance.Configuration
                 .IsRequired()
                 .HasMaxLength(300);
 
-            builder.Property(g => g.City)
-                .HasMaxLength(100);
-
             builder.Property(g => g.PhoneNumber)
                 .HasMaxLength(50);
 
@@ -34,6 +32,10 @@ namespace Persistance.Configuration
             builder.HasMany(g => g.Trainers)
                 .WithOne(t => t.Gym)
                 .HasForeignKey(t => t.GymId);
+
+            builder.HasOne(g => g.City)
+        .WithMany(c => c.Gyms)
+        .HasForeignKey(g => g.CityId);
         }
     }
 }
