@@ -1,9 +1,11 @@
 ﻿using Domain.Common;
 using Domain.Entities;
 using Domain.Identity;
+using Domain.ValueObjects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Configuration;
+using System.Reflection.Emit;
 
 namespace Persistance.Context
 {
@@ -34,6 +36,8 @@ namespace Persistance.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Ignore<GymFacilityType>();
 
             // Configuration-ları tətbiq et
             builder.ApplyConfigurationsFromAssembly(typeof(FitCircleDbContext).Assembly);
