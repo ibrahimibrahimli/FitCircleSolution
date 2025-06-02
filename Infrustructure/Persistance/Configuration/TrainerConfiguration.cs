@@ -1,5 +1,7 @@
 ﻿using Domain.Entities;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistance.Configuration
@@ -11,6 +13,10 @@ namespace Persistance.Configuration
             builder.ToTable("Trainers");
 
             builder.HasKey(t => t.Id);
+
+            builder.Ignore(g => g.Specializations);
+
+            
 
             builder.Property(t => t.Firstname)
                 .IsRequired()
