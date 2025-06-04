@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Identity;
 using Domain.ValueObjects;
+using Infrustructure.Data.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Configuration;
@@ -38,12 +39,15 @@ namespace Persistance.Context
             base.OnModelCreating(builder);
 
             builder.Ignore<GymFacilityType>();
+            
 
             // Configuration-ları tətbiq et
             builder.ApplyConfigurationsFromAssembly(typeof(FitCircleDbContext).Assembly);
 
             // Global query filter-lər (məsələn soft delete üçün)
             ConfigureGlobalFilters(builder);
+
+            DataSeeder.Seed(builder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
