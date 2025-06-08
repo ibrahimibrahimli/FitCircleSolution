@@ -18,6 +18,7 @@ namespace Application.Features.Cities.Commands.Create
 
             var city = City.Create(dto.Name, dto.CountryId, dto.PostalCode);
             await _writeRepository.AddAsync(city, cancellationToken);
+            await _writeRepository.SaveChangesAsync(cancellationToken);
 
             return city.Id;
         }

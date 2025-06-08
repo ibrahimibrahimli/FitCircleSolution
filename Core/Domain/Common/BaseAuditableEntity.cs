@@ -10,6 +10,6 @@
         public string? UpdatedBy { get; set; }
 
         public Guid? Deleted {  get; set; }
-        public DateTime DeletedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

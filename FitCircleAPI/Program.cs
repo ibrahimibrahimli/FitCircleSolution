@@ -1,5 +1,6 @@
 
 using Application.Extensions;
+using Application.Features.Cities.Commands.Create;
 using FitCircleAPI.Exsensions;
 using Infrustructure.Extensions;
 using Persistance.Extensions;
@@ -23,6 +24,11 @@ namespace FitCircleAPI
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(typeof(CreateCityCommandHandler).Assembly);
+            });
 
             var app = builder.Build();
 

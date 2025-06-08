@@ -4,7 +4,7 @@ namespace Domain.Entities;
 
 public class Country : BaseAuditableEntity
 {
-    private readonly List<City> _cities = new();
+    private readonly List<City> _cities = new(); // Fix for CS0229: Removed duplicate declaration
 
     private Country() { }
 
@@ -18,7 +18,6 @@ public class Country : BaseAuditableEntity
     public string Name { get; private set; }
     public string CountryCode { get; private set; }
 
-    private readonly List<City> _cities = new(); // Fix for IDE0028: Simplified collection initialization
     public IReadOnlyCollection<City> Cities => _cities.AsReadOnly();
 
     public static Country Create(string name, string countryCode)

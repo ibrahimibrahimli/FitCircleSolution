@@ -12,6 +12,7 @@ namespace Persistance.Context
 {
     public class FitCircleDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
+
         public FitCircleDbContext(DbContextOptions<FitCircleDbContext> options) : base(options)
         {
         }
@@ -80,7 +81,7 @@ namespace Persistance.Context
                 {
                     case EntityState.Added:
                         entityEntry.Entity.CreatedAt = utcNow;
-                        // Əgər UpdatedDate property-si varsa
+
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
                             entityEntry.Property("UpdatedDate").CurrentValue = utcNow;
@@ -88,10 +89,8 @@ namespace Persistance.Context
                         break;
 
                     case EntityState.Modified:
-                        // CreatedAt-ı dəyişdirilməsinə icazə vermə
                         entityEntry.Property(e => e.CreatedAt).IsModified = false;
 
-                        // UpdatedDate-i yenilə
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
                             entityEntry.Property("UpdatedDate").CurrentValue = utcNow;
