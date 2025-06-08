@@ -8,7 +8,7 @@ namespace Infrustructure.Extensions
     {
         public static IServiceCollection AddInfrustructure(this IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
+            //services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             return services;
         }
