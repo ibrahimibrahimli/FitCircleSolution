@@ -1,4 +1,5 @@
-﻿using Domain.Common;
+﻿using Application.Common.Interfaces;
+using Domain.Common;
 using Domain.Entities;
 using Domain.Identity;
 using Domain.ValueObjects;
@@ -12,9 +13,11 @@ namespace Persistance.Context
 {
     public class FitCircleDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
+        readonly ICurrentUserService _currentUserService;
 
-        public FitCircleDbContext(DbContextOptions<FitCircleDbContext> options) : base(options)
+        public FitCircleDbContext(DbContextOptions<FitCircleDbContext> options, ICurrentUserService currentUserService) : base(options)
         {
+            _currentUserService = currentUserService;
         }
 
         public DbSet<ApplicationUser> Users { get; set; }
@@ -40,7 +43,7 @@ namespace Persistance.Context
             base.OnModelCreating(builder);
 
             builder.Ignore<GymFacilityType>();
-            
+
 
             // Configuration-ları tətbiq et
             builder.ApplyConfigurationsFromAssembly(typeof(FitCircleDbContext).Assembly);
@@ -69,6 +72,8 @@ namespace Persistance.Context
 
         private void UpdateAuditInformation()
         {
+            var userId = _currentUserService.UserId;
+
             var auditableEntities = ChangeTracker
                 .Entries<BaseAuditableEntity>()
                 .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
@@ -81,6 +86,7 @@ namespace Persistance.Context
                 {
                     case EntityState.Added:
                         entityEntry.Entity.CreatedAt = utcNow;
+                        entityEntry.Entity.CreatedBy = userId ?? "System Admin";
 
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
@@ -90,7 +96,7 @@ namespace Persistance.Context
 
                     case EntityState.Modified:
                         entityEntry.Property(e => e.CreatedAt).IsModified = false;
-
+                        entityEntry.Entity.UpdatedBy = userId ?? "System Admin" ;
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
                             entityEntry.Property("UpdatedDate").CurrentValue = utcNow;

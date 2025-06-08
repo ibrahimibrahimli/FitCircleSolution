@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Common.Interfaces;
+using Infrustructure.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrustructure.Extensions
 {
@@ -6,7 +8,8 @@ namespace Infrustructure.Extensions
     {
         public static IServiceCollection AddInfrustructure(this IServiceCollection services)
         {
-
+            //services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             return services;
         }
     }
