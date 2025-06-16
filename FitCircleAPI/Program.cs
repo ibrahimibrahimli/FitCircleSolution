@@ -23,6 +23,8 @@ namespace FitCircleAPI
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddControllers();
+            builder.Services.ConfigureAuthentication(builder.Configuration);
+            builder.Services.ConfigureAuthorization();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

@@ -2,6 +2,14 @@
 {
     public interface ICurrentUserService
     {
-        string? UserId { get; }
+        string? GetCurrentUserId();
+        string GetCurrentUsername();
+        string GetCurrentUserRole();
+        string GetCurrentUserFullName();
+        string GetUserAgent();
+        string GetFingerprint();
+        string GetRemoteIpAddress();
+        string GetRefreshToken();
+        string GetAccessToken();
     }
 }
