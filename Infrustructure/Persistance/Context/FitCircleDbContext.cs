@@ -72,7 +72,7 @@ namespace Persistance.Context
 
         private void UpdateAuditInformation()
         {
-            var userId = _currentUserService.UserId;
+            var userId = _currentUserService.GetCurrentUserId;
 
             var auditableEntities = ChangeTracker
                 .Entries<BaseAuditableEntity>()
