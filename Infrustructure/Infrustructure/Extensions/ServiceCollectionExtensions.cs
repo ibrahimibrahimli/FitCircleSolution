@@ -10,6 +10,7 @@ namespace Infrustructure.Extensions
         {
             //services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IPasetoService, PasetoService>();
             return services;
         }
     }

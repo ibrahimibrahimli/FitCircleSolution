@@ -72,7 +72,7 @@ namespace Persistance.Context
 
         private void UpdateAuditInformation()
         {
-            var userId = _currentUserService.GetCurrentUserId;
+            var userId = _currentUserService.GetCurrentUserId(); // Fix: Call the method instead of treating it as a property  
 
             var auditableEntities = ChangeTracker
                 .Entries<BaseAuditableEntity>()
@@ -96,7 +96,9 @@ namespace Persistance.Context
 
                     case EntityState.Modified:
                         entityEntry.Property(e => e.CreatedAt).IsModified = false;
-                        entityEntry.Entity.UpdatedBy = userId.ToString() ?? "System Admin" ;
+                        //entityEntry.Entity.UpdatedBy = userId.ToString() ?? "System Admin" ;
+                         //entityEntry.Entity.UpdatedBy = userId ?? "System Admin";
+
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
                             entityEntry.Property("UpdatedDate").CurrentValue = utcNow;
