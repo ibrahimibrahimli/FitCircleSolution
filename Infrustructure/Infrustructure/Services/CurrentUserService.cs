@@ -40,9 +40,5 @@ namespace Infrustructure.Services
         public string GetAccessToken() =>
             httpContext.Request.Cookies["access_token"];
 
-        //public string GetCurrentUserId()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

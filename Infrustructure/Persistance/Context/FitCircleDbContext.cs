@@ -86,7 +86,7 @@ namespace Persistance.Context
                 {
                     case EntityState.Added:
                         entityEntry.Entity.CreatedAt = utcNow;
-                        entityEntry.Entity.CreatedBy = userId ?? "System Admin";
+                        entityEntry.Entity.CreatedBy = userId.ToString() ?? "System Admin";
 
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
@@ -96,7 +96,9 @@ namespace Persistance.Context
 
                     case EntityState.Modified:
                         entityEntry.Property(e => e.CreatedAt).IsModified = false;
-                        entityEntry.Entity.UpdatedBy = userId ?? "System Admin";
+                        //entityEntry.Entity.UpdatedBy = userId.ToString() ?? "System Admin" ;
+                         //entityEntry.Entity.UpdatedBy = userId ?? "System Admin";
+
                         if (entityEntry.Entity.GetType().GetProperty("UpdatedDate") != null)
                         {
                             entityEntry.Property("UpdatedDate").CurrentValue = utcNow;
