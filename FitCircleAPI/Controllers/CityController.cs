@@ -1,6 +1,7 @@
 ﻿using Application.Features.Cities.Commands.Create;
 using Application.Features.Cities.Dtos;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitCircleAPI.Controllers
@@ -17,6 +18,7 @@ namespace FitCircleAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateCityDto dto)
         {
             var commandRequest = new CreateCityCommandRequest(dto);
