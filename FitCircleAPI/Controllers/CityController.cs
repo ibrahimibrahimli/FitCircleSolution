@@ -1,5 +1,6 @@
 ﻿using Application.Features.Cities.Commands.Create;
 using Application.Features.Cities.Dtos;
+using Application.Features.Cities.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,18 @@ namespace FitCircleAPI.Controllers
             var commandRequest = new CreateCityCommandRequest(dto);
             var city = await _mediatr.Send(commandRequest);
             return CreatedAtAction(nameof(Create), city);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> GetAllCities()
+        {
+            var cities = _mediatr.Send(new GetAllCitiesQueryRequest()); 
+            if(cities != null)
+            {
+                return Ok(cities);
+            }
+            return BadRequest();
         }
     }
 }
