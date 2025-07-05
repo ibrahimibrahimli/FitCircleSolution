@@ -1,4 +1,5 @@
 ﻿using Application.Features.Cities.Commands.Create;
+using Application.Features.Cities.Commands.Delete;
 using Application.Features.Cities.Dtos;
 using Application.Features.Cities.Queries;
 using MediatR;
@@ -28,7 +29,6 @@ namespace FitCircleAPI.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> GetAllCities()
         {
             var cities = _mediatr.Send(new GetAllCitiesQueryRequest()); 
@@ -37,6 +37,18 @@ namespace FitCircleAPI.Controllers
                 return Ok(cities);
             }
             return BadRequest();
+        }
+
+        [HttpDelete("{Id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteCity(DeleteCityCommandRequest request)
+        {
+            var result = await _mediatr.Send(request);
+
+            if (!result)
+                return NotFound(new { Message = "City not found" });
+
+            return NoContent();
         }
     }
 }
